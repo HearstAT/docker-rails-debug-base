@@ -11,7 +11,7 @@ COPY . .
 
 RUN apk update && apk add \
     bash supervisor git nodejs \
-    openssl-dev postgresql-dev libpq postgresql-client \
+    openssl-dev postgresql-dev libpq postgresql-client sqlite-dev \
     libxml2-dev libxslt-dev &&\
     runDeps="$( \
         scanelf --needed --nobanner --recursive /usr/local \
@@ -22,7 +22,7 @@ RUN apk update && apk add \
     )" &&\
     apk add --virtual .ruby-builddeps $runDeps \
     build-base ruby-dev libc-dev linux-headers && \
-    gem install bundler rails pg puma devise activeadmin &&\
+    gem install bundler rails pg puma devise activeadmin sqlite3 &&\
 
     # set up sendmail
     echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories &&\
